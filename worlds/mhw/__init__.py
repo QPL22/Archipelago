@@ -104,7 +104,7 @@ class MHWWorld(World):
                 loc = MHWLocation(self.player, loc_name, loc_data.code, loc_region)
                 loc_region.locations.append(loc)
 
-        if self.options.arena_quests.value == 1:
+        if self.options.specialarena_quests.value == 1:
             for loc_name, loc_data in arenaquest_database.items():
                 if loc_data.zone in set_region:
                     loc_region = set_region[loc_data.zone]
@@ -231,6 +231,8 @@ class MHWWorld(World):
             "endemic_id": ENDEMIC_ID_OFFSET,
             "free_weapon": self.options.freeweapon.value,
             "free_armor": self.options.freearmor.value,
+            "seasonal": self.options.seasonal.value,
+            "wincon": self.options.ending_rank.value,
         }
 
         return slot_data

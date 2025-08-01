@@ -68,6 +68,7 @@ quest_database: Dict[str, LocationData] = {
     "Prickly Predicament": LocationData(LOCATION_ID_OFFSET + 363, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
     "Gettin' Yolked in the Waste": LocationData(LOCATION_ID_OFFSET + 364, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
     "The Current Situation": LocationData(LOCATION_ID_OFFSET + 353, LocType.Low_Rank, 2, ["Urgent: Pukei-Pukei Hunt"]),
+    "Landing the Landslide Wyvern": LocationData(LOCATION_ID_OFFSET + 365, LocType.Low_Rank, 2, ["Snatch the Snatcher"]),
     # Level 4 Assigned Quests
     "The Encroaching Anjanath": LocationData(LOCATION_ID_OFFSET + 306, LocType.Low_Rank, 4, ["Flying Sparks: Tobi-Kadachi"]), # Progress 4
     "One for the History Books": LocationData(LOCATION_ID_OFFSET + 401, LocType.Low_Rank, 4, ["The Encroaching Anjanath"]),

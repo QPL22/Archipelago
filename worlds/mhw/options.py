@@ -6,7 +6,7 @@ class EndingRank(Choice):
     """Choose which rank you must reach the end of in order to complete.
     Low Rank: Finish \"Invader In The Waste\"
     High Rank: Finish \"Land of Convergence\"
-    Master Rank: Finish \"Paean of Guidance"""
+    Master Rank: Finish \"Paean of Guidance\""""
     display_name = "Completed Rank"
     option_low_rank = 0
     option_high_rank = 1
@@ -15,8 +15,9 @@ class EndingRank(Choice):
 
 
 class ArenaQuests(Toggle):
-    """Adds Arena Quests to the quest pool."""
-    display_name = "Arena Quests"
+    """Adds Special Arena Quests to the quest pool.
+    Note: These are the quest that are unlocked when you capture a monster."""
+    display_name = "Special Arena Quests"
 
 
 class EventQuests(Toggle):
@@ -76,7 +77,7 @@ class HealingBoxWeight(Range):
     display_name = "Healing Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class TrapBoxWeight(Range):
@@ -84,7 +85,7 @@ class TrapBoxWeight(Range):
     display_name = "Trap Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class BuffBoxWeight(Range):
@@ -92,7 +93,7 @@ class BuffBoxWeight(Range):
     display_name = "Buff Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class AmmoBoxWeight(Range):
@@ -100,7 +101,7 @@ class AmmoBoxWeight(Range):
     display_name = "Ammo Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class IngredientBoxWeight(Range):
@@ -108,7 +109,7 @@ class IngredientBoxWeight(Range):
     display_name = "Ingredient Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class JunkBoxWeight(Range):
@@ -116,7 +117,7 @@ class JunkBoxWeight(Range):
     display_name = "Junk Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class MeldingBoxWeight(Range):
@@ -124,7 +125,7 @@ class MeldingBoxWeight(Range):
     display_name = "Melding Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class ChanceBoxWeight(Range):
@@ -132,7 +133,7 @@ class ChanceBoxWeight(Range):
     display_name = "Chance Box Chance Weight"
     range_start = 0
     range_end = 100
-    default = 50
+    default = 10
 
 
 class ZennyWeight(Range):
@@ -153,16 +154,21 @@ class FreeWeapon(DefaultOnToggle):
     display_name = "Free Weapon Crafting"
 
 
+class SeasonalArmor(Toggle):
+    """Makes it so seasonal armor and weapons are added to the pool for free weapons and armors."""
+    display_name = "Seasonal Armor and Weapons"
+
 @dataclass
 class MonsterHunterWorldOptions(PerGameCommonOptions):
     ending_rank: EndingRank
-    arena_quests: ArenaQuests
+    specialarena_quests: ArenaQuests
     event_quests: EventQuests
     special_quests: SpecialQuests
     grindy_quests: GrindyQuests
     overpowered_equip: OverpoweredWeaponsAndArmor
     freearmor: FreeArmor
     freeweapon: FreeWeapon
+    seasonal: SeasonalArmor
     endemiclife: EndemicLife
     rareendemic: RareEndemicLife
     legendendemic: LegendaryEndemicLife
