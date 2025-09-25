@@ -42,12 +42,12 @@ class MHWWorld(World):
 
     def generate_early(self) -> None:
         self.filler_weight = (
-                self.options.healingweight.value + self.options.trapweight.value + self.options.buffweight.value
+                self.options.healingweight.value + self.options.utilityweight.value + self.options.buffweight.value
                 + self.options.ammoweight.value + self.options.ingredientweight.value + self.options.junkweight.value +
                 self.options.meldingweight.value + self.options.chanceweight.value + self.options.zennyweight.value)
         self.filleritem = [("1,000 Zenny", self.options.zennyweight.value),
                            ("Healing Loot Box", self.options.healingweight.value),
-                           ("Trap Loot Box", self.options.trapweight), ("Buff Loot Box", self.options.buffweight),
+                           ("Trap Loot Box", self.options.utilityweight), ("Buff Loot Box", self.options.buffweight),
                            ("Ammo Loot Box", self.options.ammoweight.value),
                            ("Ingredient Loot Box", self.options.ingredientweight),
                            ("Junk Loot Box", self.options.junkweight.value),

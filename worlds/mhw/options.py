@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 class EndingRank(Choice):
     """Choose which rank you must reach the end of in order to complete.
-    Low Rank: Finish \"Invader In The Waste\"
+    Low Rank: Finish \"A Colossal Task\"
     High Rank: Finish \"Land of Convergence\"
     Master Rank: Finish \"Paean of Guidance\""""
     display_name = "Completed Rank"
@@ -80,9 +80,9 @@ class HealingBoxWeight(Range):
     default = 10
 
 
-class TrapBoxWeight(Range):
-    """Sets the weight of receiving a Trap Loot Box"""
-    display_name = "Trap Box Chance Weight"
+class UtilityLootBox(Range):
+    """Sets the weight of receiving a Utility Loot Box"""
+    display_name = "Utility Box Chance Weight"
     range_start = 0
     range_end = 100
     default = 10
@@ -181,7 +181,7 @@ class MonsterHunterWorldOptions(PerGameCommonOptions):
     ingredientweight: IngredientBoxWeight
     ammoweight: AmmoBoxWeight
     buffweight: BuffBoxWeight
-    trapweight: TrapBoxWeight
+    utilityweight: UtilityLootBox
     healingweight: HealingBoxWeight
 
 

@@ -154,8 +154,8 @@ quest_database: Dict[str, LocationData] = {
     "Bazelgeuse in the Field of Fire": LocationData(LOCATION_ID_OFFSET + 794, LocType.High_Rank, 6, ["Man's Best Friend"]),
     # Level 8 Assigned Quests
     "A Wound and a Thirst": LocationData(LOCATION_ID_OFFSET + 701, LocType.High_Rank, 7, ["Old World Monster In The New World"]), # Progress 7
-    "Kushala Daora, Dragon of Steel": LocationData(LOCATION_ID_OFFSET + 802, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
-    "Teostra the Infernal": LocationData(LOCATION_ID_OFFSET + 801, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
+    "Kushala Daora, Dragon of Steel": LocationData(LOCATION_ID_OFFSET + 801, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
+    "Teostra the Infernal": LocationData(LOCATION_ID_OFFSET + 802, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
     "Hellish Fiend Vaal Hazak": LocationData(LOCATION_ID_OFFSET + 803, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
     # Level 8 Optional Quests
     "The Eater of Elders": LocationData(LOCATION_ID_OFFSET + 891, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
@@ -541,7 +541,7 @@ endemiclife_database: Dict[str, LocationData] = {
     "Goldspring Macaque": LocationData(ENDEMIC_ID_OFFSET + 401, LocType.Legendary_Life, 8),
     "Crowned Prawn": LocationData(ENDEMIC_ID_OFFSET + 408, LocType.Normal_Life, 8),
     "Duffel Penguin": LocationData(ENDEMIC_ID_OFFSET + 424, LocType.Normal_Life, 8),
-    "Arrowhead Gecko": LocationData(ENDEMIC_ID_OFFSET + 432, LocType.Legendary_Life, 0),
+    "Arrowhead Gecko": LocationData(ENDEMIC_ID_OFFSET + 432, LocType.Legendary_Life, 8),
     # Aquatic Life
     "Climbing Joyperch": LocationData(ENDEMIC_ID_OFFSET + 32, LocType.Normal_Life, 0),
     "Pink Parexus": LocationData(ENDEMIC_ID_OFFSET + 88, LocType.Normal_Life, 0),
@@ -552,7 +552,7 @@ endemiclife_database: Dict[str, LocationData] = {
     "Petricanths": LocationData(ENDEMIC_ID_OFFSET + 136, LocType.Legendary_Life, 4),
     "Whetfish": LocationData(ENDEMIC_ID_OFFSET + 264, LocType.Normal_Life, 0),
     "Gastronome Tuna": LocationData(ENDEMIC_ID_OFFSET + 272, LocType.Normal_Life, 0),
-    "King Merlin": LocationData(ENDEMIC_ID_OFFSET + 280, LocType.Legendary_Life, 0),
+    "King Marlin": LocationData(ENDEMIC_ID_OFFSET + 280, LocType.Legendary_Life, 0),
     "Goldenfish": LocationData(ENDEMIC_ID_OFFSET + 296, LocType.Normal_Life, 2),
     "Platinumfish": LocationData(ENDEMIC_ID_OFFSET + 297, LocType.Normal_Life, 6),
     "Goldenfry": LocationData(ENDEMIC_ID_OFFSET + 304, LocType.Normal_Life, 0),
@@ -582,15 +582,15 @@ endemiclife_database: Dict[str, LocationData] = {
     "Hercudrome": LocationData(ENDEMIC_ID_OFFSET + 184, LocType.Normal_Life, 0),
     "Gold Hercudrome": LocationData(ENDEMIC_ID_OFFSET + 185, LocType.Rare_Life, 0),
     "Prism Hercudrome": LocationData(ENDEMIC_ID_OFFSET + 186, LocType.Rare_Life, 0),
-    "Blue Diva": LocationData(ENDEMIC_ID_OFFSET + 440, LocType.Legendary_Life, 4),
+    "Blue Diva": LocationData(ENDEMIC_ID_OFFSET + 440, LocType.Legendary_Life, 8),
     # Unclassified Life
     "Downy Crake": LocationData(ENDEMIC_ID_OFFSET + 120, LocType.Legendary_Life, 0),
-    "Bristly Crake": LocationData(ENDEMIC_ID_OFFSET + 121, LocType.Legendary_Life, 0),
-    "Cactuar": LocationData(ENDEMIC_ID_OFFSET + 344, LocType.Rare_Life, 0),
-    "Cactuar Cutting": LocationData(ENDEMIC_ID_OFFSET + 345, LocType.Rare_Life, 0),
-    "Flowering Cactuar Cutting": LocationData(ENDEMIC_ID_OFFSET + 346, LocType.Legendary_Life, 0),
+    "Bristly Crake": LocationData(ENDEMIC_ID_OFFSET + 121, LocType.Legendary_Life, 4),
+    "Cactuar": LocationData(ENDEMIC_ID_OFFSET + 344, LocType.Rare_Life, 2),
+    "Cactuar Cutting": LocationData(ENDEMIC_ID_OFFSET + 345, LocType.Rare_Life, 2),
+    "Flowering Cactuar Cutting": LocationData(ENDEMIC_ID_OFFSET + 346, LocType.Legendary_Life, 2),
     # Nekker
-    "Wintermoon Nettle": LocationData(ENDEMIC_ID_OFFSET + 464, LocType.Legendary_Life, 0),
+    "Wintermoon Nettle": LocationData(ENDEMIC_ID_OFFSET + 464, LocType.Legendary_Life, 8),
     # The Molys are in Guiding lands
 }
 
