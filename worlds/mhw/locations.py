@@ -67,7 +67,7 @@ quest_database: Dict[str, LocationData] = {
     "The Piscine Problem": LocationData(LOCATION_ID_OFFSET + 362, LocType.Low_Rank, 2, ["Sinister Shadows in the Swamp"]),
     "Prickly Predicament": LocationData(LOCATION_ID_OFFSET + 363, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
     "Gettin' Yolked in the Waste": LocationData(LOCATION_ID_OFFSET + 364, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
-    "The Current Situation": LocationData(LOCATION_ID_OFFSET + 353, LocType.Low_Rank, 2, ["Urgent: Pukei-Pukei Hunt"]),
+    "The Current Situation": LocationData(LOCATION_ID_OFFSET + 352, LocType.Low_Rank, 2, ["Urgent: Pukei-Pukei Hunt"]),
     "Landing the Landslide Wyvern": LocationData(LOCATION_ID_OFFSET + 365, LocType.Low_Rank, 2, ["Snatch the Snatcher"]),
     # Level 4 Assigned Quests
     "The Encroaching Anjanath": LocationData(LOCATION_ID_OFFSET + 306, LocType.Low_Rank, 4, ["Flying Sparks: Tobi-Kadachi"]), # Progress 4
@@ -586,8 +586,8 @@ endemiclife_database: Dict[str, LocationData] = {
     # Unclassified Life
     "Downy Crake": LocationData(ENDEMIC_ID_OFFSET + 120, LocType.Legendary_Life, 0),
     "Bristly Crake": LocationData(ENDEMIC_ID_OFFSET + 121, LocType.Legendary_Life, 4),
-    "Cactuar": LocationData(ENDEMIC_ID_OFFSET + 344, LocType.Rare_Life, 2),
-    "Cactuar Cutting": LocationData(ENDEMIC_ID_OFFSET + 345, LocType.Rare_Life, 2),
+    "Cactuar": LocationData(ENDEMIC_ID_OFFSET + 345, LocType.Rare_Life, 2),
+    "Cactuar Cutting": LocationData(ENDEMIC_ID_OFFSET + 344, LocType.Rare_Life, 2),
     "Flowering Cactuar Cutting": LocationData(ENDEMIC_ID_OFFSET + 346, LocType.Legendary_Life, 2),
     # Nekker
     "Wintermoon Nettle": LocationData(ENDEMIC_ID_OFFSET + 464, LocType.Legendary_Life, 8),
