@@ -2,6 +2,15 @@ from Options import PerGameCommonOptions, Choice, Toggle, DefaultOnToggle, Death
 from dataclasses import dataclass
 
 
+class Iceborne(DefaultOnToggle):
+    """Do have the Iceborne DLC installed?
+    Note: Certain settings require the DLC to be installed. If you select off and a certain setting requires the DLC to
+    be installed, there will be an error and the generation will continue with the setting disabled. If you leave this
+    setting on and the game detects you do not have Iceborne installed you will not be able to join the game and will be
+    required to generate the game again."""
+    display_name = "Iceborne DLC Installed"
+
+
 class EndingRank(Choice):
     """Choose which rank you must reach the end of in order to complete.
     Low Rank: Finish \"A Colossal Task\"
@@ -160,6 +169,7 @@ class SeasonalArmor(Toggle):
 
 @dataclass
 class MonsterHunterWorldOptions(PerGameCommonOptions):
+    iceborne: Iceborne
     ending_rank: EndingRank
     specialarena_quests: ArenaQuests
     event_quests: EventQuests
@@ -183,5 +193,4 @@ class MonsterHunterWorldOptions(PerGameCommonOptions):
     buffweight: BuffBoxWeight
     utilityweight: UtilityLootBox
     healingweight: HealingBoxWeight
-
 
