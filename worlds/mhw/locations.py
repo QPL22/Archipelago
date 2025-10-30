@@ -62,7 +62,8 @@ quest_database: Dict[str, LocationData] = {
     "Flying Sparks: Tobi-Kadachi": LocationData(LOCATION_ID_OFFSET + 305, LocType.Low_Rank, 2, ["Sinister Shadows in the Swamp"]),
     # Level 3 Optional Quests
     "Scatternut Shortage": LocationData(LOCATION_ID_OFFSET + 351, LocType.Low_Rank, 2, ["Urgent: Pukei-Pukei Hunt"]),
-    "Flying Sparks: Tobi-Kadachi(Optional)": LocationData(LOCATION_ID_OFFSET + 352, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
+    #False Quest?
+    #"Flying Sparks: Tobi-Kadachi(Optional)": LocationData(LOCATION_ID_OFFSET + 352, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
     "Mired in the Spire": LocationData(LOCATION_ID_OFFSET + 361, LocType.Low_Rank, 2, ["The Best Kind of Quest"]),
     "The Piscine Problem": LocationData(LOCATION_ID_OFFSET + 362, LocType.Low_Rank, 2, ["Sinister Shadows in the Swamp"]),
     "Prickly Predicament": LocationData(LOCATION_ID_OFFSET + 363, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),

@@ -1,5 +1,4 @@
-import settings
-import typing
+import logging
 from .options import MonsterHunterWorldOptions  # the options we defined earlier
 from .items import masteritems_database, MHWItem, ITEM_ID_OFFSET, \
     specialized_database  # data used below to add items to the World
@@ -47,7 +46,8 @@ class MHWWorld(World):
                 self.options.meldingweight.value + self.options.chanceweight.value + self.options.zennyweight.value)
         self.filleritem = [("1,000 Zenny", self.options.zennyweight.value),
                            ("Healing Loot Box", self.options.healingweight.value),
-                           ("Trap Loot Box", self.options.utilityweight), ("Buff Loot Box", self.options.buffweight),
+                           ("Trap Loot Box", self.options.utilityweight),
+                           ("Buff Loot Box", self.options.buffweight),
                            ("Ammo Loot Box", self.options.ammoweight.value),
                            ("Ingredient Loot Box", self.options.ingredientweight),
                            ("Junk Loot Box", self.options.junkweight.value),
@@ -61,6 +61,17 @@ class MHWWorld(World):
             2: Region("Zone 2", self.player, self.multiworld),
             4: Region("Zone 4", self.player, self.multiworld),
         }
+        #Error Handler
+        if self.options.ending_rank.value == 2:
+            if self.options.iceborne.value == 0:
+                self.options.ending_rank.value = 1
+                logging.error("Detecting Iceborne is not selected in settings. Changing win condition to High Rank.")
+        if self.options.ending_rank.value == 1:
+            if (self.options.iceborne.value == 0
+                    and (self.options.overpowered_tools.value == 1 or self.options.overpowered_equip.value == 1)):
+                self.options.overpowered_tools.value = 0
+                self.options.overpowered_equip.value = 0
+                logging.error("Detecting Iceborne is not selected in settings with High Rank set as the win condition with OP Items set. Disabling OP Items.")
 
         menu_region.connect(set_region[0], "Jagras of the Ancient Forest")
         set_region[0].connect(set_region[2], "Bird-Brained Bandit",
@@ -69,6 +80,7 @@ class MHWWorld(World):
         set_region[2].connect(set_region[4], "The Encroaching Anjanath",
                               lambda state: state.has("Progressive Weapon", self.player, 4)
                                             and state.has("Progressive Armor", self.player, 4))
+
         if self.options.ending_rank >= 1:
             set_region[5] = Region("Zone 5", self.player, self.multiworld)
             set_region[6] = Region("Zone 6", self.player, self.multiworld)
@@ -83,7 +95,8 @@ class MHWWorld(World):
             set_region[6].connect(set_region[7], "Old World Monster In The New World",
                                   lambda state: state.has("Progressive Weapon", self.player, 7)
                                                 and state.has("Progressive Armor", self.player, 7))
-        if self.options.ending_rank == 2:
+
+        if self.options.ending_rank == 2 and self.options.iceborne == 1:
             set_region[8] = Region("Zone 8", self.player, self.multiworld)
             set_region[10] = Region("Zone 10", self.player, self.multiworld)
             set_region[11] = Region("Zone 11", self.player, self.multiworld)
@@ -163,12 +176,13 @@ class MHWWorld(World):
         item_count = 0
         total_required_locations = len(self.multiworld.get_unfilled_locations(self.player))
         progressive_gear_amount = 0
-        if (self.options.ending_rank.value == 2) or (self.options.overpowered_equip.value == 0):
-            progressive_gear_amount = (4 * (self.options.ending_rank.value + 1) + 1)
+        if (self.options.ending_rank.value == 2) or (self.options.overpowered_equip.value == 0) or (self.options.iceborne.value == 0):
+            progressive_gear_amount = (4 * (self.options.ending_rank.value + 1))
         else:
-            progressive_gear_amount = (4 * (self.options.ending_rank.value + 2) + 1)
+            progressive_gear_amount = (4 * (self.options.ending_rank.value + 2))
 
-        if (self.options.ending_rank.value == 2 or self.options.overpowered_tools.value == 1) and self.options.specialized_tools.value == 1:
+        if ((self.options.ending_rank.value == 2 or self.options.overpowered_tools.value == 1)
+                and self.options.specialized_tools.value == 1 and self.options.iceborne == 1):
             tool_amount = 2
         elif self.options.specialized_tools.value == 1:
             tool_amount = 1
@@ -233,6 +247,7 @@ class MHWWorld(World):
             "free_armor": self.options.freearmor.value,
             "seasonal": self.options.seasonal.value,
             "wincon": self.options.ending_rank.value,
+            "iceborne": self.options.iceborne.value,
         }
 
         return slot_data
