@@ -43,7 +43,169 @@ class SpecialQuests(Toggle):
 class GrindyQuests(Toggle):
     """Adds some quests and some dependent locations to the pool.
     Note: These quests require a significant amount of effort to unlock."""
-    display_name = "Special Quests"
+    display_name = "Grindy Quests"
+
+
+class SinglePlayer(DefaultOnToggle):
+    """Sets all quests to only allow one player to join. Good to do if you aren't playing multiplayer with anyone else in your world."""
+    display_name = "Set Quests to Singleplayer Only"
+
+
+class QuestRando(DefaultOnToggle):
+    """Randomizes what monster is required for quest completion.
+    Required to be on for all other quest randomization settings."""
+    display_name = "Randomized Quest"
+
+
+class IceQuestRando(DefaultOnToggle):
+    """Randomizes what monster is required for quest completion.
+    Iceborne is required for this."""
+    display_name = "Randomized Iceborne Quests"
+
+
+class QuestIcon(Choice):
+    """Changes the icon for the monster to make it more of a surpise.
+    Same: Icon will always match the monster given.
+    Question Mark: All monster icons will be the question mark icon.
+    Totally Random: Totally random icons.
+    Handler Error: The chance of an error is the same as the Handler Error."""
+    display_name = "Monster Quest Icons"
+    option_same = 0
+    option_question_mark = 1
+    option_totally_random = 2
+    option_handler_error = 3
+    default = 1
+
+
+# Might not be required since sorted to with previous quests info
+class MultiObjective(Toggle):
+    """Randomize quests that require 2 different monster to hunt/slay."""
+    display_name = "Randomize Multi-Objective Quests"
+
+
+# Might not be required since sorted to with previous quests info
+class MultiMonster(Toggle):
+    """Randomize quests with 2-5 monsters."""
+    display_name = "Randomize Multi-Objective Quests"
+
+
+class SameMonster(Toggle):
+    """Randomize quests where you have to hunt two of the same monster."""
+    display_name = "Randomize Quests with 2 of Same Monster"
+
+
+class NoSlay(Toggle):
+    """Won't randomize quests with the objective to slay large monsters."""
+    display_name = "Don't Randomize Slay Quests"
+
+
+class NoCapture(Toggle):
+    """Won't randomize quests with the objective to capture large monsters."""
+    display_name = "Don't Randomize Capture Quests"
+
+
+class AllowDupMon(Toggle):
+    """Allows duplicate monsters to appear on a quest."""
+    display_name = "Duplicate Monsters on Quest"
+
+
+class RandMonSpawn(DefaultOnToggle):
+    """Randomize the spawn location of monsters."""
+    display_name = "Randomize Monster Spawn"
+
+
+class IceMonsterOptions(Choice):
+    """Sets what monsters can be randomized to Iceborne quests.
+    All Iceborne Monsters: Only randomizes monsters that found in Iceborne quests.
+    Only Iceborne Added: All monster icons will be the question mark icon.
+    All Monsters: Include all the monsters from all the ranks. !!!Experimental!!! Recommend free armor and free weapons."""
+    display_name = "Iceborne Monster Pool Options"
+    option_all_iceborne_monsters = 0
+    option_only_iceborne_added = 1
+    option_all_monsters = 2
+    default = 0
+
+
+class HighInLowMon(Toggle):
+    """Allows high rank monsters in low rank. Challenging. Recommend making weapons and armor free with this on."""
+    display_name = "High Rank Monster in Low Rank"
+
+
+class MasterInPool(Choice):
+    """Allows master rank monsters to spawn in lower ranks. !!!Experiemental!!!
+    Requires Iceborne. Recommend making weapons and armor free with this on.
+    Off: Won't spawn master rank monsters in lower ranks.
+    High Rank Only: Master rank monsters have a chance to appear in high rank quests.
+    All Ranks: Master rank monsters have a chance to appear in all ranks."""
+    display_name = "Monster Quest Icons"
+    option_off = 0
+    option_high_rank_only = 1
+    option_all_ranks = 2
+    default = 0
+
+
+class IncLeshen(Toggle):
+    """Allows the Leshen to be added to the monster pool. Challenging."""
+    display_name = "Include Leshen"
+
+
+class IncBehemoth(Toggle):
+    """Allows the Behemoth to be added to the monster pool. Challenging. !!!Experiemental!!! May get stuck."""
+    display_name = "Include Behemoth"
+
+
+class IncShara(Toggle):
+    """Requires Iceborne.
+    Allows the Shara to be added to the monster pool. Challenging. !!!Experiemental!!! May get stuck."""
+    display_name = "Include Shara Ishvalda"
+
+
+class IncRajang(Toggle):
+    """Requires Iceborne.
+    Allows the Furious Rajang to be added to the monster pool. Challenging. !!!Experiemental!!! May get stuck."""
+    display_name = "Include Furious Rajang"
+
+
+class IncAlatreon(Toggle):
+    """Requires Iceborne.
+    Allows the Alatreon to be added to the monster pool. Challenging. !!!Experiemental!!! May get stuck."""
+    display_name = "Include Alatreon"
+
+
+class SecondMonChance(Range):
+    """Sets the weight of having a quest with a second monster objective."""
+    display_name = "Second Monster Objective Chance"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+
+class ThirdMonChance(Range):
+    """Sets the weight of having a quest with a second monster objective.
+    Note: This is the chance of getting a third monster objective if there is a second monster obejective.
+    This will be same for the following options."""
+    display_name = "Third Monster Objective Chance"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+
+class FourthMonChance(Range):
+    """Sets the weight of having a quest with a second monster objective.
+    Note: This is the chance of getting a third monster objective if there is a second monster obejective.
+    This will be same for the following options."""
+    display_name = "Fourth Monster Objective Chance"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+
+class FifthMonChance(Range):
+    """Sets the weight of having a quest with a second monster objective."""
+    display_name = "Fifth Monster Objective Chance"
+    range_start = 0
+    range_end = 100
+    default = 0
 
 
 class OverpoweredWeaponsAndArmor(DefaultOnToggle):
@@ -175,6 +337,25 @@ class MonsterHunterWorldOptions(PerGameCommonOptions):
     event_quests: EventQuests
     special_quests: SpecialQuests
     grindy_quests: GrindyQuests
+    singleplayer: SinglePlayer
+    quest_rando: QuestRando
+    ice_quest_rando: IceQuestRando
+    mon_icon: QuestIcon
+    multiobjective: MultiObjective
+    multimonster: MultiMonster
+    same_monster: SameMonster
+    noslay: NoSlay
+    nocap: NoCapture
+    dup_mon: AllowDupMon
+    mon_spawn: RandMonSpawn
+    ice_mon: IceMonsterOptions
+    high_in_low_mon: HighInLowMon
+    mastermon: MasterInPool
+    leshen: IncLeshen
+    behemoth: IncBehemoth
+    shara: IncShara
+    rajang: IncRajang
+    alatreon: IncAlatreon
     overpowered_equip: OverpoweredWeaponsAndArmor
     freearmor: FreeArmor
     freeweapon: FreeWeapon
