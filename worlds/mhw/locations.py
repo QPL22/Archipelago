@@ -13,8 +13,6 @@ class MHWLocation(Location):
         self.show_in_spoiler = code is not None
 
 
-
-
 class LocType(IntFlag):
     Normal = 0
     Low_Rank = 1
@@ -62,7 +60,6 @@ quest_database: Dict[str, LocationData] = {
     "Flying Sparks: Tobi-Kadachi": LocationData(LOCATION_ID_OFFSET + 305, LocType.Low_Rank, 2, ["Sinister Shadows in the Swamp"]),
     # Level 3 Optional Quests
     "Scatternut Shortage": LocationData(LOCATION_ID_OFFSET + 351, LocType.Low_Rank, 2, ["Urgent: Pukei-Pukei Hunt"]),
-    "Flying Sparks: Tobi-Kadachi(Optional)": LocationData(LOCATION_ID_OFFSET + 352, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
     "Mired in the Spire": LocationData(LOCATION_ID_OFFSET + 361, LocType.Low_Rank, 2, ["The Best Kind of Quest"]),
     "The Piscine Problem": LocationData(LOCATION_ID_OFFSET + 362, LocType.Low_Rank, 2, ["Sinister Shadows in the Swamp"]),
     "Prickly Predicament": LocationData(LOCATION_ID_OFFSET + 363, LocType.Low_Rank, 2, ["Flying Sparks: Tobi-Kadachi"]),
@@ -152,6 +149,7 @@ quest_database: Dict[str, LocationData] = {
     "RRRRRumble in the Waste!": LocationData(LOCATION_ID_OFFSET + 764, LocType.High_Rank, 6, ["A Sore Site"]),
     "A Sore Site": LocationData(LOCATION_ID_OFFSET + 773, LocType.High_Rank, 6, ["Old World Monster In The New World"]),
     "Bazelgeuse in the Field of Fire": LocationData(LOCATION_ID_OFFSET + 794, LocType.High_Rank, 6, ["Man's Best Friend"]),
+    "Rathalos Rematch": LocationData(LOCATION_ID_OFFSET + 751, LocType.High_Rank, 6, ["Old World Monster In The New World"]),
     # Level 8 Assigned Quests
     "A Wound and a Thirst": LocationData(LOCATION_ID_OFFSET + 701, LocType.High_Rank, 7, ["Old World Monster In The New World"]), # Progress 7
     "Kushala Daora, Dragon of Steel": LocationData(LOCATION_ID_OFFSET + 801, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
@@ -162,9 +160,10 @@ quest_database: Dict[str, LocationData] = {
     "Lightning Strikes Twice": LocationData(LOCATION_ID_OFFSET + 871, LocType.High_Rank, 7, ["A Wound and a Thirst"]),
     "Master of the Gale": LocationData(LOCATION_ID_OFFSET + 892, LocType.High_Rank, 7, ["Kushala Daora, Dragon of Steel"]),
     "Stirring from the Grave": LocationData(LOCATION_ID_OFFSET + 881, LocType.High_Rank, 7, ["Hellish Fiend Vaal Hazak"]),
-    "The Winds of Wrath Bite Deep": LocationData(LOCATION_ID_OFFSET + 895, LocType.High_Rank, 7, ["Teostra the Infernal"]),
+    "The Winds of Wrath Bite Deep": LocationData(LOCATION_ID_OFFSET + 895, LocType.High_Rank, 7, ["Kushala Daora, Dragon of Steel"]),
     "A Portent of Disaster": LocationData(LOCATION_ID_OFFSET + 851, LocType.High_Rank, 7, ["Kushala Daora, Dragon of Steel"]),
     "Hellfire's Stronghold": LocationData(LOCATION_ID_OFFSET + 893, LocType.High_Rank, 7, ["Teostra the Infernal"]),
+    "The Fires of Hell Bite Deep": LocationData(LOCATION_ID_OFFSET + 896, LocType.High_Rank, 7, ["Teostra the Infernal"]),
     "A Blaze in the Sand": LocationData(LOCATION_ID_OFFSET + 861, LocType.High_Rank, 7, ["Teostra the Infernal"]),
     # High Rank Win Condition
     "Land of Convergence": LocationData(LOCATION_ID_OFFSET + 804, LocType.High_Rank, 7,
@@ -174,6 +173,7 @@ quest_database: Dict[str, LocationData] = {
     "Baptism by Ice": LocationData(LOCATION_ID_OFFSET + 1101, LocType.Master_Rank, 8, ["Land of Convergence"]), # Progress 8
     "Banbaro Blockade": LocationData(LOCATION_ID_OFFSET + 1102, LocType.Master_Rank, 8, ["Baptism by Ice"]),
     # MR 1 Optional Quests
+    "A Light Upon the River's Gloom": LocationData(LOCATION_ID_OFFSET + 991, LocType.Master_Rank, 8, ["Land of Convergence"]),
     "Deep Snow Diver": LocationData(LOCATION_ID_OFFSET + 1121, LocType.Master_Rank, 8, ["Banbaro Blockade"]),
     "Ice Catch!": LocationData(LOCATION_ID_OFFSET + 1123, LocType.Master_Rank, 8, ["Baptism by Ice"]),
     "Taking Charge": LocationData(LOCATION_ID_OFFSET + 1122, LocType.Master_Rank, 8, ["Banbaro Blockade"]),
@@ -361,6 +361,7 @@ arenaquest_database: Dict[str, LocationData] = {
 
 specialquest_database: Dict[str, LocationData] = {
     "The Food Chain Dominator": LocationData(LOCATION_ID_OFFSET + 50701, LocType.High_Rank, 7, ["Old World Monster In The New World"]),
+    "Today's Special: Hunter Flambé": LocationData(LOCATION_ID_OFFSET + 50751, LocType.High_Rank, 7, ["The Food Chain Dominator"]),
     "The Blazing Sun": LocationData(LOCATION_ID_OFFSET + 50801, LocType.Master_Rank, 8, ["Land of Convergence"]),
     "Pandora's Arena": LocationData(LOCATION_ID_OFFSET + 50802, LocType.Master_Rank, 8, ["The Blazing Sun"]),
     "No Remorse, No Surrender": LocationData(LOCATION_ID_OFFSET + 50803, LocType.Master_Rank, 8, ["Pandora's Arena"]),
