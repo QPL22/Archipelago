@@ -1,4 +1,4 @@
-from Options import PerGameCommonOptions, Choice, Toggle, DefaultOnToggle, DeathLink, StartInventoryPool, Range
+from Options import PerGameCommonOptions, Choice, Toggle, DefaultOnToggle, DeathLink, StartInventoryPool, Range, Visibility
 from dataclasses import dataclass
 
 
@@ -46,11 +46,32 @@ class GrindyQuests(Toggle):
     display_name = "Grindy Quests"
 
 
+class QuestScoutType(Choice):
+    """Will change the quest description to show what item you will recieve by completing the quest.
+    Off: Will leave this option off resulting in the default quest descriptions.
+    Summary: Will only show the recieving player's name and the item type. (Player1's Progressive Item)
+    Full Scout: Will show the recieving player's name, item type, and the item name."""
+    display_name = "Quest Scout"
+    option_off = 0
+    option_summary = 1
+    option_full_scout = 2
+    default = 2
+
+
+class HandlerError(Range):
+    """Percent chance of the Handler messing up the Quest Scout or the Quest Icon of the quest if the applicable settings are turned on."""
+    display_name = "Handler Error"
+    range_start = 0
+    range_end = 100
+    default = 5
+
+
 class SinglePlayer(DefaultOnToggle):
     """Sets all quests to only allow one player to join. Good to do if you aren't playing multiplayer with anyone else in your world."""
     display_name = "Set Quests to Singleplayer Only"
 
 
+# region QuestRandoOptions
 class QuestRando(DefaultOnToggle):
     """Randomizes what monster is required for quest completion.
     Required to be on for all other quest randomization settings."""
@@ -58,9 +79,18 @@ class QuestRando(DefaultOnToggle):
 
 
 class IceQuestRando(DefaultOnToggle):
-    """Randomizes what monster is required for quest completion.
+    """Randomizes what monster is required for quest completion in master rank.
     Iceborne is required for this."""
     display_name = "Randomized Iceborne Quests"
+
+
+class MonsterSortAlgo(Choice):
+    """For Dev Eyes Only."""
+    display_name = "Monster Sort Algorithm"
+    option_tot_random = 0
+    option_one_of_each = 1
+    option_proper = 2
+    default = 0
 
 
 class QuestIcon(Choice):
@@ -117,7 +147,7 @@ class RandMonSpawn(DefaultOnToggle):
 class IceMonsterOptions(Choice):
     """Sets what monsters can be randomized to Iceborne quests.
     All Iceborne Monsters: Only randomizes monsters that found in Iceborne quests.
-    Only Iceborne Added: All monster icons will be the question mark icon.
+    Only Iceborne Added: Only randomizes monsters that are new in Iceborne.
     All Monsters: Include all the monsters from all the ranks. !!!Experimental!!! Recommend free armor and free weapons."""
     display_name = "Iceborne Monster Pool Options"
     option_all_iceborne_monsters = 0
@@ -138,10 +168,10 @@ class MasterInPool(Choice):
     High Rank Only: Master rank monsters have a chance to appear in high rank quests.
     All Ranks: Master rank monsters have a chance to appear in all ranks."""
     display_name = "Monster Quest Icons"
-    option_off = 0
+    option_off = 2
     option_high_rank_only = 1
-    option_all_ranks = 2
-    default = 0
+    option_all_ranks = 0
+    default = 2
 
 
 class IncLeshen(Toggle):
@@ -151,6 +181,11 @@ class IncLeshen(Toggle):
 
 class IncBehemoth(Toggle):
     """Allows the Behemoth to be added to the monster pool. Challenging. !!!Experiemental!!! May get stuck."""
+    display_name = "Include Behemoth"
+
+
+class IncXeno(Toggle):
+    """Allows the Xeno'jiva to be added to the monster pool. Challenging. !!!Experiemental!!! May get stuck."""
     display_name = "Include Behemoth"
 
 
@@ -172,17 +207,9 @@ class IncAlatreon(Toggle):
     display_name = "Include Alatreon"
 
 
-class SecondMonChance(Range):
-    """Sets the weight of having a quest with a second monster objective."""
-    display_name = "Second Monster Objective Chance"
-    range_start = 0
-    range_end = 100
-    default = 0
-
-
 class ThirdMonChance(Range):
-    """Sets the weight of having a quest with a second monster objective.
-    Note: This is the chance of getting a third monster objective if there is a second monster obejective.
+    """Sets the weight of having a quest with a third monster spawned.
+    Note: This is the chance of getting a monster to spawn that isn't part of the quest objective.
     This will be same for the following options."""
     display_name = "Third Monster Objective Chance"
     range_start = 0
@@ -191,9 +218,9 @@ class ThirdMonChance(Range):
 
 
 class FourthMonChance(Range):
-    """Sets the weight of having a quest with a second monster objective.
-    Note: This is the chance of getting a third monster objective if there is a second monster obejective.
-    This will be same for the following options."""
+    """Sets the weight of having a quest with a fourth monster spawned.
+    Note: This is the chance of getting a monster to spawn that isn't part of the quest objective.
+    Note: In order for a fourth monster to spawn, the third monster must have been rolled to spawn."""
     display_name = "Fourth Monster Objective Chance"
     range_start = 0
     range_end = 100
@@ -201,11 +228,34 @@ class FourthMonChance(Range):
 
 
 class FifthMonChance(Range):
-    """Sets the weight of having a quest with a second monster objective."""
+    """Sets the weight of having a quest with a fifth monster spawned.
+    Note: This is the chance of getting a monster to spawn that isn't part of the quest objective.
+    Note: In order for a fifth monster to spawn, the fouth monster must have been rolled to spawn."""
     display_name = "Fifth Monster Objective Chance"
     range_start = 0
     range_end = 100
     default = 0
+
+
+class SixthMonChance(Range):
+    """Sets the weight of having a quest with a sixth monster spawned.
+    Note: This is the chance of getting a monster to spawn that isn't part of the quest objective.
+    Note: In order for a sixth monster to spawn, the fifth monster must have been rolled to spawn."""
+    display_name = "Fifth Monster Objective Chance"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+
+class SeventhMonChance(Range):
+    """Sets the weight of having a quest with a seventh monster spawned.
+    Note: This is the chance of getting a monster to spawn that isn't part of the quest objective.
+    Note: In order for a seventh monster to spawn, the sixth monster must have been rolled to spawn."""
+    display_name = "Fifth Monster Objective Chance"
+    range_start = 0
+    range_end = 100
+    default = 0
+# endregion
 
 
 class OverpoweredWeaponsAndArmor(DefaultOnToggle):
@@ -329,6 +379,7 @@ class SeasonalArmor(Toggle):
     """Makes it so seasonal armor and weapons are added to the pool for free weapons and armors."""
     display_name = "Seasonal Armor and Weapons"
 
+
 @dataclass
 class MonsterHunterWorldOptions(PerGameCommonOptions):
     iceborne: Iceborne
@@ -337,9 +388,12 @@ class MonsterHunterWorldOptions(PerGameCommonOptions):
     event_quests: EventQuests
     special_quests: SpecialQuests
     grindy_quests: GrindyQuests
+    quest_scout: QuestScoutType
+    handler_error: HandlerError
     singleplayer: SinglePlayer
     quest_rando: QuestRando
     ice_quest_rando: IceQuestRando
+    sortalgo: MonsterSortAlgo
     mon_icon: QuestIcon
     multiobjective: MultiObjective
     multimonster: MultiMonster
@@ -356,6 +410,12 @@ class MonsterHunterWorldOptions(PerGameCommonOptions):
     shara: IncShara
     rajang: IncRajang
     alatreon: IncAlatreon
+    xeno: IncXeno
+    thirdmon: ThirdMonChance
+    fourthmon: FourthMonChance
+    fifthmon: FifthMonChance
+    sixthmon: SixthMonChance
+    seventhmon: SeventhMonChance
     overpowered_equip: OverpoweredWeaponsAndArmor
     freearmor: FreeArmor
     freeweapon: FreeWeapon

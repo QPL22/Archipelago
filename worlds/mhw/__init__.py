@@ -5,6 +5,7 @@ from .items import masteritems_database, MHWItem, ITEM_ID_OFFSET, \
 from .locations import masterlocations_database, quest_database, arenaquest_database, eventquest_database, \
     specialquest_database, endemiclife_database, LocType, MHWLocation, LOCATION_ID_OFFSET, \
     ENDEMIC_ID_OFFSET, grindy_database, specializedtools_database  # same as above
+from .quests import quest_sorter, quest_total_rando, quest_dict
 from worlds.AutoWorld import World, WebWorld
 from typing import Dict, List
 from BaseClasses import Region, Location, Entrance, Item, ItemClassification, Tutorial
@@ -39,6 +40,11 @@ class MHWWorld(World):
     filleritem: List
     filler_weight: int
 
+    # Temp solution
+    low_rank = []
+    high_rank = []
+    master_rank = []
+
     def generate_early(self) -> None:
         self.filler_weight = (
                 self.options.healingweight.value + self.options.utilityweight.value + self.options.buffweight.value
@@ -54,24 +60,38 @@ class MHWWorld(World):
                            ("Melding Loot Box", self.options.meldingweight.value),
                            ("Chance Loot Box", self.options.chanceweight.value)]
 
-    def create_regions(self) -> None:
         menu_region = Region("Menu", self.player, self.multiworld)
         set_region: Dict[int, Region] = {
             0: Region("Zone 0", self.player, self.multiworld),
             2: Region("Zone 2", self.player, self.multiworld),
             4: Region("Zone 4", self.player, self.multiworld),
         }
-        #Error Handler
-        if self.options.ending_rank.value == 2:
-            if self.options.iceborne.value == 0:
-                self.options.ending_rank.value = 1
-                logging.error("Detecting Iceborne is not selected in settings. Changing win condition to High Rank.")
+
+        iceborne = bool(self.options.iceborne.value)
+        questrando = bool(self.options.quest_rando.value)
+        icequestrando = bool(self.options.ice_quest_rando.value)
+        questhint = bool(self.options.quest_scout.value)
+        # Error Handler
+        if self.options.ending_rank.value == 2 and not iceborne:
+            self.options.ending_rank.value = 1
+            logging.error(
+                "Detecting Iceborne is not selected in settings. Changing win condition to High Rank.")
         if self.options.ending_rank.value == 1:
-            if (self.options.iceborne.value == 0
+            if (not iceborne
                     and (self.options.overpowered_tools.value == 1 or self.options.overpowered_equip.value == 1)):
                 self.options.overpowered_tools.value = 0
                 self.options.overpowered_equip.value = 0
-                logging.error("Detecting Iceborne is not selected in settings with High Rank set as the win condition with OP Items set. Disabling OP Items.")
+                logging.error(
+                    "Detecting Iceborne is not selected in settings with High Rank set as the win condition with OP Items set. Disabling OP Items.")
+        if not iceborne and \
+            (not self.options.mastermon.value == 0 or self.options.alatreon.value == 1 or self.options.rajang.value == 1
+             or self.options.shara.value == 1 or icequestrando):
+            self.options.mastermon.value = 0
+            self.options.alatreon.value = 0
+            self.options.rajang.value = 0
+            self.options.shara.value = 0
+            icequestrando = False
+            logging.error("Detecting Iceborne is not selected in settings and conflicting monster randomization settings. Setting all relevent settings to off.")
 
         menu_region.connect(set_region[0], "Jagras of the Ancient Forest")
         set_region[0].connect(set_region[2], "Bird-Brained Bandit",
@@ -116,6 +136,7 @@ class MHWWorld(World):
                 loc_region = set_region[loc_data.zone]
                 loc = MHWLocation(self.player, loc_name, loc_data.code, loc_region)
                 loc_region.locations.append(loc)
+                quest_sorter(self, loc_data, questrando, icequestrando, questhint)
 
         if self.options.specialarena_quests.value == 1:
             for loc_name, loc_data in arenaquest_database.items():
@@ -171,6 +192,16 @@ class MHWWorld(World):
             menu_region,
             *set_region.values()
         ]
+
+        quest_total_rando(self)
+    #     quest_rando: QuestRando
+    #     ice_quest_rando: IceQuestRando
+    #     multiobjective: MultiObjective
+    #     multimonster: MultiMonster
+    #     same_monster: SameMonster
+    #     noslay: NoSlay
+    #     nocap: NoCapture
+
 
     def create_items(self) -> None:
         item_count = 0
@@ -236,6 +267,10 @@ class MHWWorld(World):
     #     "weapons": {"sword", "lance"},
     # }
 
+    # Slot Data
+    # singleplayer: SinglePlayer
+    # mon_icon: QuestIcon
+    # mon_spawn: RandMonSpawn
     def fill_slot_data(self) -> Dict[str, object]:
         slot_data: Dict[str, object] = {}
 
