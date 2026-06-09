@@ -2,6 +2,15 @@ from Options import PerGameCommonOptions, Choice, Toggle, DefaultOnToggle, Death
 from dataclasses import dataclass
 
 
+class MonsterSortAlgo(Choice):
+    """For Dev Eyes Only."""
+    visibility = Visibility.spoiler
+    option_tot_random = 0
+    option_one_of_each = 1
+    option_proper = 2
+    default = 1
+
+
 class Iceborne(DefaultOnToggle):
     """Do have the Iceborne DLC installed?
     Note: Certain settings require the DLC to be installed. If you select off and a certain setting requires the DLC to
@@ -82,15 +91,6 @@ class IceQuestRando(DefaultOnToggle):
     """Randomizes what monster is required for quest completion in master rank.
     Iceborne is required for this."""
     display_name = "Randomized Iceborne Quests"
-
-
-class MonsterSortAlgo(Choice):
-    """For Dev Eyes Only."""
-    display_name = "Monster Sort Algorithm"
-    option_tot_random = 0
-    option_one_of_each = 1
-    option_proper = 2
-    default = 0
 
 
 class QuestIcon(Choice):

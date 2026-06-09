@@ -1,4 +1,5 @@
 import logging
+import BaseClasses
 from .options import MonsterHunterWorldOptions  # the options we defined earlier
 from .items import masteritems_database, MHWItem, ITEM_ID_OFFSET, \
     specialized_database  # data used below to add items to the World
@@ -44,6 +45,7 @@ class MHWWorld(World):
     low_rank = []
     high_rank = []
     master_rank = []
+    quest_pool = []
 
     def generate_early(self) -> None:
         self.filler_weight = (
@@ -144,6 +146,7 @@ class MHWWorld(World):
                     loc_region = set_region[loc_data.zone]
                     loc = MHWLocation(self.player, loc_name, loc_data.code, loc_region)
                     loc_region.locations.append(loc)
+                    quest_sorter(self, loc_data, questrando, icequestrando, questhint)
 
         if self.options.event_quests.value == 1:
             for loc_name, loc_data in eventquest_database.items():
@@ -151,6 +154,7 @@ class MHWWorld(World):
                     loc_region = set_region[loc_data.zone]
                     loc = MHWLocation(self.player, loc_name, loc_data.code, loc_region)
                     loc_region.locations.append(loc)
+                    quest_sorter(self, loc_data, questrando, icequestrando, questhint)
 
         if self.options.special_quests.value == 1:
             for loc_name, loc_data in specialquest_database.items():
@@ -160,6 +164,7 @@ class MHWWorld(World):
                     loc_region = set_region[loc_data.zone]
                     loc = MHWLocation(self.player, loc_name, loc_data.code, loc_region)
                     loc_region.locations.append(loc)
+                    quest_sorter(self, loc_data, questrando, icequestrando, questhint)
 
         if self.options.grindy_quests.value == 1:
             for loc_name, loc_data in grindy_database.items():
@@ -169,6 +174,8 @@ class MHWWorld(World):
                     loc_region = set_region[loc_data.zone]
                     loc = MHWLocation(self.player, loc_name, loc_data.code, loc_region)
                     loc_region.locations.append(loc)
+                    if not loc_data.loc_type.Tool:
+                        quest_sorter(self, loc_data, questrando, icequestrando, questhint)
 
         if self.options.specialized_tools.value == 1:
             for loc_name, loc_data in specializedtools_database.items():
@@ -201,7 +208,6 @@ class MHWWorld(World):
     #     same_monster: SameMonster
     #     noslay: NoSlay
     #     nocap: NoCapture
-
 
     def create_items(self) -> None:
         item_count = 0
@@ -267,10 +273,6 @@ class MHWWorld(World):
     #     "weapons": {"sword", "lance"},
     # }
 
-    # Slot Data
-    # singleplayer: SinglePlayer
-    # mon_icon: QuestIcon
-    # mon_spawn: RandMonSpawn
     def fill_slot_data(self) -> Dict[str, object]:
         slot_data: Dict[str, object] = {}
 
@@ -283,6 +285,11 @@ class MHWWorld(World):
             "seasonal": self.options.seasonal.value,
             "wincon": self.options.ending_rank.value,
             "iceborne": self.options.iceborne.value,
+            "quest_info": quest_dict,
+            "one_player": self.options.singleplayer.value,
+            "quest_icon": self.options.mon_icon.value,
+            "handler_error": self.options.handler_error.value,
+            "hint_value": self.options.quest_scout.value,
         }
 
         return slot_data

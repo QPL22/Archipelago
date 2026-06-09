@@ -36,15 +36,17 @@ story_quest = [102, 103, 201, 205, 301, 302, 305, 306, 401, 405, 407, 408, 501, 
                50701]
 slay_story_quest = [701, 801, 802, 803, 804, 806, 50801, 50802, 50803, 50601, 50906, 50910, 1404, 1501, 1503, 1504,
                     1601, 1602, 1605, 51601, 51602, 51606, 51611, 51612, 51613]
+# 2 Monsters
 multi_object = [552, 753, 764, 774, 795, 996, 997, 998, 61103, 61105, 61603, 61604, 66102, 66103, 66606, 66607, 66608,
                 67604]
+# More than 2 Monsters
 multi_monster = [992, 64101, 65605, 66105, 66106, 66601, 66602, 66603, 66604, 66605, 67103, 67605, 67608]
 duplicate = [961, 5003, 61104, 64601, 65602, 66101, 67106]
 slay = [572, 851, 861, 871, 881, 891, 892, 893, 894, 895, 896, 971, 3001, 3002, 3031, 3032, 3033, 3034, 3101, 62502,
         62503, 62504, 62505, 62506, 62511, 62607, 62609, 63038, 63039, 63052, 63101, 63102, 63103, 63107, 63108, 63130,
         63131, 67610, 1521, 1551, 1552, 1561, 1571, 1572, 1581, 1591, 1592, 1661, 1691, 3071, 3072, 3073, 3091, 3171,
-        51622, 63073,
-        63074, 63143, 63150, 66836, 67801, 66847, 66840, 66841, 66842, 66843, 66844, 66850, 66858, 66863, 67806]
+        51622, 63073, 63074, 63143, 63150, 66836, 67801, 66847, 66840, 66841, 66842, 66843, 66844, 66850, 66858, 66863,
+        67806]
 slay_multi_object = [3051, 3052, 50861, 50891, 50892, 63002, 63031, 63051]
 slay_multi_monster = [995, 63001, 63104, 63105, 63106, 63109, 63110, 66610, 1651, 1671, 1692, 3074, 3092, 61807, 63071,
                       63072, 63149, 66815, 66816]
@@ -62,8 +64,7 @@ ib_quest = [1121, 1122, 1131, 1132, 1133, 1134, 1151, 1152, 1153, 1154, 1161, 11
             61809, 61813, 64802, 66817, 66818, 66819, 66820, 66821, 66822, 66824, 66825, 66832, 66835, 66859, 66860,
             67807, 66846, 66854, 66855, 66856, 66857, 66861, 66867, 67809, 66865, 66866]
 ib_multi_object = [1264, 1354, 1363, 1383, 1395, 1423, 1483, 1603, 1604, 61802, 61812, 64801, 66805, 66807, 66808,
-                   66809,
-                   66810, 66811, 66812, 66813, 66814, 66862]
+                   66809, 66810, 66811, 66812, 66813, 66814, 66862]
 ib_multi_monster = [1631, 1642, 61814, 66806, 66826, 66827, 66828, 66829, 66830, 66831, 66834, 66864]
 ib_dupe = [61808, 66801, 66803]
 ib_slay = [1521, 1551, 1552, 1561, 1571, 1572, 1581, 1591, 1592, 1661, 1691, 3071, 3072, 3073, 3091, 3171, 51622, 63073,
@@ -72,9 +73,8 @@ ib_slay_multi_mon = [1651, 1671, 1692, 3074, 3092, 61807, 63071, 63072, 63149, 6
 ib_capture = [1123, 1155, 1222, 1253, 1322, 1394, 1482, 1492, 1594, 61803]
 
 coral_quest_ids = [405, 408, 607, 806, 472, 473, 571, 671, 672, 771, 772, 773, 572, 871, 971, 475, 774, 1203, 1403,
-                   1504,
-                   1171, 1271, 1272, 1273, 1274, 1371, 1372, 1373, 1471, 1571, 1572, 1671, 5003, 62503, 61803, 61814,
-                   66104, 66603, 66607, 66810, 66816, 66818, 66828, 66847]
+                   1504, 1171, 1271, 1272, 1273, 1274, 1371, 1372, 1373, 1471, 1571, 1572, 1671, 5003, 62503, 61803,
+                   61814, 66104, 66603, 66607, 66810, 66816, 66818, 66828, 66847]
 
 hoarfrost_quest_ids = [1101, 1102, 1121, 1122, 1123, 1201, 1221, 1222, 1224, 1225, 1301, 1321, 1322, 1323, 1401, 1405,
                        1421, 1422, 1423, 1501, 1521, 51602, 51607, 51623, 66801, 66831, 66846, 66857, 67809]
@@ -95,7 +95,7 @@ master_clear = False
 
 
 def questid_to_str(locid):
-    questid = LOCATION_ID_OFFSET - locid
+    questid = locid - LOCATION_ID_OFFSET
     if questid < 1000:
         return str("00" + str(questid))
     elif questid < 10000:
@@ -116,7 +116,7 @@ def quest_sorter(world, loc_data, questrand, icequest, questhint):
         return
 
     # If not randomizing iceborne quest and master rank and quest hint is on put in dict with hint mark
-    if not icequest and loc_data.loc_type.Master_Rank:
+    if not icequest and loc_data.loc_type == LocType.Master_Rank:
         if questhint:
             quest_dict[questid_to_str(loc_data.code)] = [-1]
             return
@@ -136,72 +136,37 @@ def quest_sorter(world, loc_data, questrand, icequest, questhint):
                 quest_dict[questid_to_str(loc_data.code)] = [-1]
             return
         else:
-            if loc_data.loc_type.Master_Rank:
-                world.master_rank.append(loc_data)
-                return
-            elif loc_data.loc_type.High_Rank:
-                world.high_rank.append(loc_data)
-                return
-            else:
-                world.low_rank.append(loc_data)
-                return
+            world.quest_pool.append(loc_data)
+            return
 
     if quest_id in capture:
         if world.options.nocap.value == 1:
-            if loc_data.loc_type.Master_Rank:
-                world.master_rank.append(loc_data)
-                return
-            elif loc_data.loc_type.High_Rank:
-                world.high_rank.append(loc_data)
-                return
-            else:
-                world.low_rank.append(loc_data)
-                return
+            world.quest_pool.append(loc_data)
+            return
         elif questhint:
             quest_dict[questid_to_str(loc_data.code)] = [-1]
         return
 
     if quest_id in multi_object:
         if world.options.multiobjective.value == 1:
-            if loc_data.loc_type.Master_Rank:
-                world.master_rank.append(loc_data)
-                return
-            elif loc_data.loc_type.High_Rank:
-                world.high_rank.append(loc_data)
-                return
-            else:
-                world.low_rank.append(loc_data)
-                return
+            world.quest_pool.append(loc_data)
+            return
         elif questhint:
             quest_dict[questid_to_str(loc_data.code)] = [-1]
         return
 
     if quest_id in multi_monster:
         if world.options.multimonster.value == 1:
-            if loc_data.loc_type.Master_Rank:
-                world.master_rank.append(loc_data)
-                return
-            elif loc_data.loc_type.High_Rank:
-                world.high_rank.append(loc_data)
-                return
-            else:
-                world.low_rank.append(loc_data)
-                return
+            world.quest_pool.append(loc_data)
+            return
         elif questhint:
             quest_dict[questid_to_str(loc_data.code)] = [-1]
         return
 
     if quest_id in duplicate:
         if world.options.same_monster.value == 1:
-            if loc_data.loc_type.Master_Rank:
-                world.master_rank.append(loc_data)
-                return
-            elif loc_data.loc_type.High_Rank:
-                world.high_rank.append(loc_data)
-                return
-            else:
-                world.low_rank.append(loc_data)
-                return
+            world.quest_pool.append(loc_data)
+            return
         elif questhint:
             quest_dict[questid_to_str(loc_data.code)] = [-1]
         return
@@ -212,15 +177,8 @@ def quest_sorter(world, loc_data, questrand, icequest, questhint):
 
     # IF probably redundant
     if questrand:
-        if loc_data.loc_type.Master_Rank:
-            world.master_rank.append(loc_data)
-            return
-        elif loc_data.loc_type.High_Rank:
-            world.high_rank.append(loc_data)
-            return
-        else:
-            world.low_rank.append(loc_data)
-            return
+        world.quest_pool.append(loc_data)
+        return
     # Error Catcher
     else:
         quest_dict[questid_to_str(loc_data.code)] = [-1]
@@ -278,7 +236,7 @@ def quest_total_rando(world):
     mon_pool_high.extend(monster_pool_maker(world, 1))
     mon_pool_master.extend(monster_pool_maker(world, 2))
 
-    for quest in world.low_rank + world.high_rank + world.master_rank:
+    for quest in world.quest_pool:
         pool = []
         # Call monster_pool_maker for low rank
         # Determine Quest Object/Quest Type
@@ -288,17 +246,17 @@ def quest_total_rando(world):
         # Roll the monsters
         # Add to dictionary
         # Do first?
-        quest_id = LOCATION_ID_OFFSET - quest.code
+        quest_id = quest.code - LOCATION_ID_OFFSET
         # If here for changing Quest Type and Object
         quest_type = 0
         objective = 0
         # If here for map roll
         map_id = 0
 
-        if quest.loc_type.Low_Rank:
+        if quest.loc_type.Low_Rank == LocType.Low_Rank:
             rank = 0
             pool = mon_pool_low.copy()
-        elif quest.loc_type.High_Rank:
+        elif quest.loc_type.High_Rank == LocType.High_Rank:
             rank = 1
             pool = mon_pool_high.copy()
         else:
@@ -307,8 +265,23 @@ def quest_total_rando(world):
         # For loop for all monsters, universal function with parameters. Need monster_pool, map_id, quest_id, quest_type
         # If any param is 0 it should pass the vanilla value through instead
         # There should be a static pool and mutable pool, for true random just static is fine
-        quest_dict[questid_to_str(quest.code)] = [quest_type, objective, map_id,
-                                                  total_rando_mon(world, pool, map_id, quest_id, quest_type, rank)]
+        quest_str = questid_to_str(quest.code)
+        quest_dict[quest_str] = [quest_type, objective, map_id]
+        #Skip 102 since duping from 103
+        if quest_id == 102:
+            continue
+        temp = total_rando_mon(world, pool, map_id, quest_id, quest_type, rank)
+
+        for i in temp:
+            quest_dict[quest_str].append(i)
+            # Duping 103 to 102
+            if quest_id == 103:
+                quest_dict["00102"].append(i)
+
+
+    # For debugging
+    for key, value in quest_dict.items():
+        print(f"{key}: {value}")
 
 
 def mon_sort(world, pool, map_id, quest_id, quest_type, rank) -> list[int]:
@@ -368,10 +341,6 @@ def total_rando_mon(world, pool, map_id, quest_id, quest_type, rank) -> list[int
             mon_param.append(mon_id)
 
         if i == 1:
-            # On 301 monster 2 must be rath == 9
-            if quest_id == 301:
-                mon_param.append(9)
-                continue
             # Same monster on dupe quests
             if (quest_id in ib_dupe or
                     quest_id in slay_dupe or
@@ -379,27 +348,39 @@ def total_rando_mon(world, pool, map_id, quest_id, quest_type, rank) -> list[int
                 mon_param.append(mon_param[0])
                 continue
             # Add second monster on multi quests, skip if not
-            if (quest_id in slay_story_quest or
-                    quest_id in slay or
-                    quest_id in slay_multi_monster or
-                    quest_id in slay_dupe or
-                    quest_id in slay_multi_object):
+            if (quest_id in slay_multi_monster or
+                    quest_id in slay_multi_object or
+                    quest_id in multi_object or
+                    quest_id in multi_monster or
+                    quest_id in ib_multi_object or
+                    quest_id in ib_multi_monster or
+                    quest_id in ib_slay_multi_mon):
                 mon_param.append(mon_id)
             else:
+                # For now only 2 monster on 103 and 102 and no setting for changing objective
+                if quest_id == 103:
+                    mon_param.append(-1)
+                    break
                 mon_param.append(-1)
+                continue
 
-        # 50920 monster 3 must be 23
-        if i == 2 and quest_id == 50920:
+        # On 301 monster 3 must be rath == 9
+        if i == 2 and quest_id == 301:
+            mon_param.append(9)
+            mon_param.append(100)
+            continue
+        # 50920 monster 4 must be 23
+        if i == 3 and quest_id == 50920:
             mon_param.append(23)
             mon_param.append(100)
             continue
 
         if i >= 2:
-            # Set monster to be spawned in with same spawn percentage
-            if (quest_id in multi_object or quest_id in multi_monster or quest_id in slay_multi_object or 
-                    quest_id in ib_multi_monster or quest_id in ib_multi_object or quest_id in ib_slay_multi_mon):
+            # For multi quest assume all slots filled. On Generator remove monsters that are blank
+            if (quest_id in multi_monster or quest_id in slay_multi_monster or quest_id in ib_multi_monster or
+                    quest_id in ib_slay_multi_mon):
                 mon_param.append(mon_id)
-                mon_param.append(-1)
+                mon_param.append(100)
                 # Need more in depth quest anaylsis for better algo
             else:
                 # Set the percentage of subsequent spawns for normal quests. Make spawns 100% for now.
@@ -430,8 +411,7 @@ def total_rando_mon(world, pool, map_id, quest_id, quest_type, rank) -> list[int
                         mon_param.append(-1)
                         mon_param.append(-1)
                         continue
-                # If 3 or later check if monster was spawned in previous slot
-                # Default for now
+                # Error Catch
                 mon_param.append(-1)
                 mon_param.append(-1)
                 continue
