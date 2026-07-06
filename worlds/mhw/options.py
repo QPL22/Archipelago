@@ -8,7 +8,7 @@ class MonsterSortAlgo(Choice):
     option_tot_random = 0
     option_one_of_each = 1
     option_proper = 2
-    default = 1
+    default = 0
 
 
 class Iceborne(DefaultOnToggle):

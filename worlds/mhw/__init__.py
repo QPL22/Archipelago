@@ -269,7 +269,6 @@ class MHWWorld(World):
 
     # Items can be grouped using their names to allow easy checking if any item
     # from that group has been collected. Group names can also be used for !hint
-    # item_name_groups = {
     #     "weapons": {"sword", "lance"},
     # }
 
@@ -290,6 +289,7 @@ class MHWWorld(World):
             "quest_icon": self.options.mon_icon.value,
             "handler_error": self.options.handler_error.value,
             "hint_value": self.options.quest_scout.value,
+            "rand_mon_spawn": self.options.mon_spawn.value,
         }
 
         return slot_data
