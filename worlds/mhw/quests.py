@@ -78,6 +78,7 @@ coral_quest_ids = [405, 408, 607, 806, 472, 473, 571, 671, 672, 771, 772, 773, 5
 
 hoarfrost_quest_ids = [1101, 1102, 1121, 1122, 1123, 1201, 1221, 1222, 1224, 1225, 1301, 1321, 1322, 1323, 1401, 1405,
                        1421, 1422, 1423, 1501, 1521, 51602, 51607, 51623, 66801, 66831, 66846, 66857, 67809]
+small_slay = [101, 102, 152, 151, 262, 263, 471, 484, 481, 684, 691, 692, 694, 1124, 1223, 61101, 61601, 61605, 63003]
 
 quest_dict: Dict[str, List[int]] = {}
 
@@ -125,13 +126,15 @@ def quest_sorter(world, loc_data, questrand, icequest, questhint):
 
     quest_id = LOCATION_ID_OFFSET - loc_data.code
 
+    # if no slay is off then sort the slay quests
     if world.options.noslay.value == 0 and (quest_id in slay_story_quest or
                                       quest_id in slay or
                                       quest_id in slay_multi_monster or
                                       quest_id in slay_dupe or
                                       quest_id in slay_multi_object):
+        # NOTE: Currently small slay is being sorted out to avoid issues.
         if ((world.world.options.multimonster.value == 0 and quest_id in slay_multi_monster) or
-                (world.options.multiobjective.value == 0 and quest_id in slay_multi_object)):
+                (world.options.multiobjective.value == 0 and quest_id in slay_multi_object)) or quest_id in small_slay:
             if questhint:
                 quest_dict[questid_to_str(loc_data.code)] = [-1]
             return

@@ -8,7 +8,7 @@ class MonsterSortAlgo(Choice):
     option_tot_random = 0
     option_one_of_each = 1
     option_proper = 2
-    default = 0
+    default = 1
 
 
 class Iceborne(DefaultOnToggle):
@@ -59,11 +59,15 @@ class QuestScoutType(Choice):
     """Will change the quest description to show what item you will recieve by completing the quest.
     Off: Will leave this option off resulting in the default quest descriptions.
     Summary: Will only show the recieving player's name and the item type. (Player1's Progressive Item)
-    Full Scout: Will show the recieving player's name, item type, and the item name."""
+    Full Scout: Will show the recieving player's name, item type, and the item name.
+    Summary w/Handler Error: Same as summary but the Handler may get the details wrong.
+    Full Scout w/Handler Error: Same as Full Scout but the Handler may get the details wrong."""
     display_name = "Quest Scout"
     option_off = 0
     option_summary = 1
     option_full_scout = 2
+    option_summary_handler = 3
+    option_full_handler = 4
     default = 2
 
 
